@@ -1,14 +1,13 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:mrfr_pay/domain/boleto.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
 
 class BoletoTileWidget extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String trailing;
+  final Boleto boleto;
 
-  const BoletoTileWidget({Key? key, required this.title, required this.subtitle, required this.trailing}) : super(key: key);
+  const BoletoTileWidget({Key? key, required this.boleto}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +21,9 @@ class BoletoTileWidget extends StatelessWidget {
             boletoModal(context);
           },
           child: ListTile(
-            title: Text(title, style: AppTextStyles.titleListTile),
+            title: Text(widget.boleto.title, style: AppTextStyles.titleListTile),
             subtitle: Text(
-              subtitle,
+              widget.boleto.title,
               style: AppTextStyles.captionBody,
             ),
             trailing: Text.rich( 
@@ -33,7 +32,7 @@ class BoletoTileWidget extends StatelessWidget {
                 style: AppTextStyles.trailingRegular,
                 children: [
                 TextSpan(
-                  text: trailing,
+                  text: widget.boleto.trailing,
                   style: AppTextStyles.trailingBold,
                   ),
                 ],
@@ -74,13 +73,13 @@ boletoModal(context){
                       text: 'O boleto ',
                       style: AppTextStyles.textModal,
                       children: [
-                        TextSpan(text: 'Tia Maria\n', style: AppTextStyles.titleBoldHeading),
+                        TextSpan(text: '${widget.boleto.title}\n', style: AppTextStyles.titleBoldHeading),
                         TextSpan(text: 'no valor de ', style: AppTextStyles.textModal),
                         TextSpan(
                           text: 'R\$ ', 
                           style: AppTextStyles.titleBoldHeading, 
                           children: const [
-                            TextSpan(text: '2.131,33')
+                            TextSpan(text: widget.boleto.trailing)
                             ]
                         ),
                         TextSpan(text: ' foi pago?', style: AppTextStyles.textModal),
