@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
 import 'package:mrfr_pay/widgets/boleto_info.dart';
-import 'package:mrfr_pay/widgets/boleto_tile.dart';
 import 'package:mrfr_pay/widgets/divider_widget.dart';
 
 class BoletoScreen extends StatefulWidget {
@@ -52,22 +51,7 @@ class _BoletoScreenState extends State<BoletoScreen> {
             width: 368, 
             color: AppColors.stroke,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: BoletoTileWidget(
-              title: "Tia Maria", 
-              subtitle: "Vence em 16/03/22", 
-              trailing: "2.131,33",
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: BoletoTileWidget(
-              title: "Tia Maria", 
-              subtitle: "Vence em 16/03/22", 
-              trailing: "2.131,33",
-            ),
-          ),
+          
         ],
       ),
     );
