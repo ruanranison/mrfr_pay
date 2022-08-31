@@ -4,10 +4,10 @@ import 'package:mrfr_pay/domain/boleto.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
 
-class BoletoTileWidget extends StatelessWidget {
+class BoletoGridWidget extends StatelessWidget {
   final Boleto boleto;
 
-  const BoletoTileWidget({Key? key, required this.boleto}) : super(key: key);
+  const BoletoGridWidget({Key? key, required this.boleto}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +20,43 @@ class BoletoTileWidget extends StatelessWidget {
           onTap: () {
             boletoModal(context, boleto);
           },
-          child: ListTile(
-            title: Text(boleto.title, style: AppTextStyles.titleListTile),
-            subtitle: Text(
-              boleto.subtitle,
-              style: AppTextStyles.captionBody,
-            ),
-            trailing: Text.rich( 
-              TextSpan(
-                text: 'R\$ ',
-                style: AppTextStyles.trailingRegular,
-                children: [
-                TextSpan(
-                  text: boleto.trailing,
-                  style: AppTextStyles.trailingBold,
-                  ),
-                ],
+          child: Card(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(
+                  color: AppColors.stroke
+                )
               ),
-            ),
+              width: 250,
+              height: 200,
+              padding: const EdgeInsets.only(top: 2, left: 2, right: 2, bottom: 2),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(boleto.title, style: AppTextStyles.titleListTile),
+                    Text(
+                      boleto.subtitle,
+                      style: AppTextStyles.captionBody,
+                    ),
+                    Text.rich( 
+                      TextSpan(
+                        text: 'R\$ ',
+                        style: AppTextStyles.trailingRegular,
+                        children: [
+                        TextSpan(
+                          text: boleto.trailing,
+                          style: AppTextStyles.trailingBold,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
           ),
-        ),
+
+          )
       );
 
   }

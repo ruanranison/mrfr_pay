@@ -18,6 +18,7 @@ class _ListViewScreenState extends State<ListViewScreen> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: list.length,
+      physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return BoletoTileWidget(
           boleto: list[index],
