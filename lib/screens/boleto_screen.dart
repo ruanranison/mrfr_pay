@@ -1,5 +1,7 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:mrfr_pay/data/BD.dart';
+import 'package:mrfr_pay/domain/boleto.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
 import 'package:mrfr_pay/widgets/boleto_info.dart';
@@ -16,7 +18,7 @@ class BoletoScreen extends StatefulWidget {
 
 class _BoletoScreenState extends State<BoletoScreen> {
   bool isGridView = false;
-
+  List<Boleto> list = BD.lista;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,8 +36,8 @@ class _BoletoScreenState extends State<BoletoScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 24), 
                   child: AnimatedCard(
                     direction: AnimatedCardDirection.top,
-                    child: const BoletoInfoWidget(
-                        num_boletos: 14,
+                    child: BoletoInfoWidget(
+                        num_boletos: list.length, 
                     ),  
                   ),
                 ),

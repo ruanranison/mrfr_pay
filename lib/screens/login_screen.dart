@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.only(left: 40, right: 40, top: 40),
               child: SocialLoginButton(
                 onTap: () => 
-                Navigator.pushNamed(context, '/home'),
+                Navigator.pushReplacementNamed(context, '/home'),
               ),
             ),
           ]
