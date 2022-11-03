@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mrfr_pay/data/DBHelper.dart';
 import 'package:mrfr_pay/domain/boleto.dart';
 import 'package:mrfr_pay/widgets/boleto_tile.dart';
+import 'package:mrfr_pay/data/BoletoDao.dart';
 
 class ListViewScreen extends StatefulWidget {
   const ListViewScreen({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class ListViewScreen extends StatefulWidget {
 }
 
 class _ListViewScreenState extends State<ListViewScreen> {
-  List<Boleto> list = BD.lista;
+  List<Boleto> list = BoletoDao().pegarListaBoleto();
 
   @override
   Widget build(BuildContext context) {

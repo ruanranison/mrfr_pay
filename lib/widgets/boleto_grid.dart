@@ -34,20 +34,20 @@ class BoletoGridWidget extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(boleto.title, style: AppTextStyles.titleListTile),
-                    Text(
-                      boleto.subtitle,
-                      style: AppTextStyles.captionBody,
-                    ),
+                    Text(boleto.nome, style: AppTextStyles.titleListTile),
+                    // Text(
+                    //   boleto.subtitle,
+                    //   style: AppTextStyles.captionBody,
+                    // ),
                     Text.rich( 
                       TextSpan(
                         text: 'R\$ ',
                         style: AppTextStyles.trailingRegular,
                         children: [
-                        TextSpan(
-                          text: boleto.trailing,
-                          style: AppTextStyles.trailingBold,
-                          ),
+                        // TextSpan(
+                        //   text: boleto.trailing,
+                        //   style: AppTextStyles.trailingBold,
+                        //   ),
                         ],
                       ),
                     ),
@@ -90,14 +90,14 @@ boletoModal(context, Boleto boleto){
                       text: 'O boleto ',
                       style: AppTextStyles.textModal,
                       children: [
-                        TextSpan(text: "${boleto.title} \n", style: AppTextStyles.titleBoldHeading),
+                        TextSpan(text: "${boleto.nome} \n", style: AppTextStyles.titleBoldHeading),
                         TextSpan(text: 'no valor de ', style: AppTextStyles.textModal),
                         TextSpan(
                           text: 'R\$ ', 
                           style: AppTextStyles.titleBoldHeading, 
-                          children: [
-                            TextSpan(text: boleto.trailing)
-                            ]
+                          // children: [
+                          //   TextSpan(text: boleto.trailing)
+                          //   ]
                         ),
                         TextSpan(text: ' foi pago?', style: AppTextStyles.textModal),
                       ],

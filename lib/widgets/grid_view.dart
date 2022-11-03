@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mrfr_pay/data/DBHelper.dart';
 import 'package:mrfr_pay/domain/boleto.dart';
 import 'boleto_grid.dart';
+import 'package:mrfr_pay/data/BoletoDao.dart';
 
 class GridViewScreen extends StatefulWidget {
   const GridViewScreen({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class GridViewScreen extends StatefulWidget {
 }
 
 class _GridViewScreenState extends State<GridViewScreen> {
-  List<Boleto> list = BD.lista;
+  List<Boleto> list = BoletoDao().pegarListaBoleto();
 
   @override
   Widget build(BuildContext context) {

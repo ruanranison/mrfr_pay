@@ -21,20 +21,20 @@ class BoletoTileWidget extends StatelessWidget {
             boletoModal(context, boleto);
           },
           child: ListTile(
-            title: Text(boleto.title, style: AppTextStyles.titleListTile),
-            subtitle: Text(
-              boleto.subtitle,
-              style: AppTextStyles.captionBody,
-            ),
+            title: Text(boleto.nome, style: AppTextStyles.titleListTile),
+            // subtitle: Text(
+            //   boleto.vencimento,
+            //   style: AppTextStyles.captionBody,
+            // ),
             trailing: Text.rich( 
               TextSpan(
                 text: 'R\$ ',
                 style: AppTextStyles.trailingRegular,
                 children: [
-                TextSpan(
-                  text: boleto.trailing,
-                  style: AppTextStyles.trailingBold,
-                  ),
+                  // TextSpan(
+                  //   text: boleto.valor,
+                  //   style: AppTextStyles.trailingBold,
+                  // ),
                 ],
               ),
             ),
@@ -73,14 +73,14 @@ boletoModal(context, Boleto boleto){
                       text: 'O boleto ',
                       style: AppTextStyles.textModal,
                       children: [
-                        TextSpan(text: "${boleto.title} \n", style: AppTextStyles.titleBoldHeading),
+                        TextSpan(text: "${boleto.nome} \n", style: AppTextStyles.titleBoldHeading),
                         TextSpan(text: 'no valor de ', style: AppTextStyles.textModal),
                         TextSpan(
                           text: 'R\$ ', 
                           style: AppTextStyles.titleBoldHeading, 
-                          children: [
-                            TextSpan(text: boleto.trailing)
-                            ]
+                          // children: [
+                          //   TextSpan(text: boleto.valor)
+                          //   ]
                         ),
                         TextSpan(text: ' foi pago?', style: AppTextStyles.textModal),
                       ],

@@ -19,8 +19,8 @@ class DBHelper {
 
 
   Future<FutureOr<void>> onCreate(Database db, int version) async {
+    String sql = "CREATE TABLE boleto (nome varchar(100), valor double, codigo varchar(20)) PRIMARY KEY";
+    await db.execute(sql);
   }
 
-  Future<FutureOr<void>> onUpgrade(Database db, int oldVersion, int newVersion) async {
-  }
 }
