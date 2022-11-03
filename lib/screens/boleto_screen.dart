@@ -19,7 +19,7 @@ class BoletoScreen extends StatefulWidget {
 
 class _BoletoScreenState extends State<BoletoScreen> {
   bool isGridView = false;
-  List<Boleto> list = BoletoDao().pegarListaBoleto();
+  List<Boleto> list = getListaBoleto();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -13,7 +13,7 @@ class Boleto {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = {};
     data['nome'] = nome;
     data['valor'] = valor;
     data['codigo'] = codigo;

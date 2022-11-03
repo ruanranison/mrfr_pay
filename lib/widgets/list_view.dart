@@ -11,7 +11,7 @@ class ListViewScreen extends StatefulWidget {
 }
 
 class _ListViewScreenState extends State<ListViewScreen> {
-  List<Boleto> list = BoletoDao().pegarListaBoleto();
+  List<Boleto> list = getListaBoleto();
 
   @override
   Widget build(BuildContext context) {
