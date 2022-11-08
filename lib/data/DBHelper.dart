@@ -22,7 +22,7 @@ class DBHelper {
     String sql = "CREATE TABLE user (username varchar(100) PRIMARY KEY, password varchar(100))";
     await db.execute(sql);
     
-    sql = "CREATE TABLE boleto (nome varchar(100), valor double, codigo varchar(20)) PRIMARY KEY";
+    sql = "CREATE TABLE boleto (nome varchar(100), valor double, codigo varchar(20) PRIMARY KEY) ";
     await db.execute(sql);
   }
 

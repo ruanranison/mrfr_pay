@@ -19,7 +19,8 @@ class BoletoScreen extends StatefulWidget {
 
 class _BoletoScreenState extends State<BoletoScreen> {
   bool isGridView = false;
-  List<Boleto> list = getListaBoleto();
+  Future<List<Boleto>> boletos = BoletoDao().pegarBoletoBD();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -33,14 +34,24 @@ class _BoletoScreenState extends State<BoletoScreen> {
                   height: 40, 
                   color: AppColors.primary
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24), 
-                  child: AnimatedCard(
-                    direction: AnimatedCardDirection.top,
-                    child: BoletoInfoWidget(
-                        num_boletos: list.length, 
-                    ),  
-                  ),
+                FutureBuilder<List<Boleto>>(
+                  future: boletos,
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData){
+                      List<Boleto> listaBoleto = snapshot.data ?? [];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24), 
+                        child: AnimatedCard(
+                          direction: AnimatedCardDirection.top,
+                          child: BoletoInfoWidget(
+                              num_boletos: listaBoleto.length, 
+                          ),  
+                        ),
+                      );
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                    
+                  },
                 ),
               ],
             ),
@@ -79,3 +90,15 @@ class _BoletoScreenState extends State<BoletoScreen> {
     );
   }
 }
+
+// List<Boleto> pegarListaBoleto(result) {
+//   List<Boleto> listaBoleto = [];
+//   result.then((value) {
+//     value.forEach((element) {
+//       Boleto boleto = Boleto.fromJson(element);
+//       listaBoleto.add(boleto);
+//     });
+//     return listaBoleto; 
+//   });
+//   return listaBoleto;
+// }

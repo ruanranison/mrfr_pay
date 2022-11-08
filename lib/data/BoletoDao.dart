@@ -8,18 +8,13 @@ class BoletoDao {
     DBHelper dbHelper = DBHelper();
     Database database = await dbHelper.initDB();
     String sql = "SELECT * FROM boleto";
-    var result = await database.rawQuery(sql);
-    print(result);
-    List<Boleto> lista = pegarListaBoleto(result);
-    return lista;
-  }
-
-  List<Boleto> pegarListaBoleto(List<Map<String, dynamic>> result) {
     List<Boleto> listaBoleto = [];
-    result.forEach((element) {
-      Boleto boleto = Boleto.fromJson(element);
+    var result = await database.rawQuery(sql);
+    for (var json in result) {
+      Boleto boleto = Boleto.fromJson(json);
       listaBoleto.add(boleto);
-    });
+    }
+    print(result);
     return listaBoleto;
   }
 
@@ -27,11 +22,7 @@ class BoletoDao {
     DBHelper dbHelper = DBHelper();
     Database database = await dbHelper.initDB();
 
-    await database.insert('user', boleto.toJson());
+    await database.insert('boleto', boleto.toJson());
   }
 }
 
-getListaBoleto() async {
-  List<Boleto> lista = await BoletoDao().pegarBoletoBD();
-  return lista;
-}

@@ -12,23 +12,48 @@ class GridViewScreen extends StatefulWidget {
 }
 
 class _GridViewScreenState extends State<GridViewScreen> {
-  List<Boleto> list = getListaBoleto();
+  Future<List<Boleto>> boletos = BoletoDao().pegarBoletoBD();
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 2,
-      ),
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        return BoletoGridWidget(
-          boleto: list[index],
-        );
+    return FutureBuilder<List<Boleto>>(
+      future: boletos,
+      builder: (context, snapshot) {
+
+        if(snapshot.hasData){
+          List<Boleto> listaBoleto = snapshot.data ?? [];
+
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 2,
+            ),
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemCount: listaBoleto.length,
+            itemBuilder: (context, index) {
+              return BoletoGridWidget(
+                boleto: listaBoleto[index],
+              );
+            },
+          );
+        }
+
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
 }
+// List<Boleto> pegarListaBoleto(result) {
+//   List<Boleto> listaBoleto = [];
+//   result.then((value) {
+//     value.forEach((element) {
+//       Boleto boleto = Boleto.fromJson(element);
+//       listaBoleto.add(boleto);
+//       print("foreach");
+//       print(listaBoleto.length);
+//     });
+//     return listaBoleto; 
+//   });
+//   return listaBoleto;
+// }

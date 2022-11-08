@@ -11,19 +11,42 @@ class ListViewScreen extends StatefulWidget {
 }
 
 class _ListViewScreenState extends State<ListViewScreen> {
-  List<Boleto> list = getListaBoleto();
+  Future<List<Boleto>> boletos = BoletoDao().pegarBoletoBD();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: list.length,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        return BoletoTileWidget(
-          boleto: list[index],
-        );
+    return FutureBuilder<List<Boleto>>(
+      future: boletos,
+      builder: (context, snapshot) {
+
+        if(snapshot.hasData){
+          List<Boleto> listaBoleto = snapshot.data ?? [];
+
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: listaBoleto.length,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              return BoletoTileWidget(
+                boleto: listaBoleto[index],
+              );
+            },
+          );
+        }
+
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
 }
+// List<Boleto> pegarListaBoleto (Future<List<Map<String, Object?>>> result) {
+//   List<Boleto> listaBoleto = [];
+//   result.then((value) {
+//     value.forEach((element) {
+//       Boleto boleto = Boleto.fromJson(element);
+//       listaBoleto.add(boleto);
+//     });
+//     return listaBoleto; 
+//   });
+//   return listaBoleto;
+
