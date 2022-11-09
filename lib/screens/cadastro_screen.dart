@@ -10,14 +10,14 @@ import 'package:mrfr_pay/widgets/input_text.dart';
 import 'package:mrfr_pay/widgets/label_button.dart';
 import 'package:mrfr_pay/widgets/social_login_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class CadastroScreen extends StatefulWidget {
+  const CadastroScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _CadastroScreenState createState() => _CadastroScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _CadastroScreenState extends State<CadastroScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -70,37 +70,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     children: [
                       LabelButton(
-                        label: "ENTRAR",
-                        onPressed: () async{
-                          String user = _usercontroller.text;
-                          String senha = _passwordcontroller.text;
-                          bool login = await UserDao().autenticar(user, senha);
-                          if(login==true) {
-                            Navigator.pushReplacementNamed(context, '/home');
-                          }
+                        label: "CADASTRAR",
+                        onPressed: () async {
+                          String userDigitado = _usercontroller.text;
+                          String senhaDigitada = _passwordcontroller.text;
+                          User user = User(username: userDigitado, password: senhaDigitada);
+                          await UserDao().cadastrarUser(user: user);
+                          Navigator.pushReplacementNamed(context, '/login');
                         },
                         style: AppTextStyles.buttonBackground,
                       ),
                     ],
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40, top: 40),
-                child: Text.rich(
-                  TextSpan(
-                    style: TextStyle(fontSize: 16),
-                    text: 'Ainda não possui uma conta? ',
-                    children: [
-                      TextSpan(
-                        text: 'Cadastre-se',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          Navigator.pushNamed(context, '/cadastro');
-                        },
-                      )
-                    ]
-                  )
                 ),
               ),
             ]),

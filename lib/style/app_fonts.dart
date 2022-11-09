@@ -17,6 +17,13 @@ class AppTextStyles {
     fontFamily: 'LexendDeca'
   );
 
+  static final titleRegularPrimary = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w700,
+    color: AppColors.primary,
+    fontFamily: 'LexendDeca'
+  );
+
   static final textModal = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w400,

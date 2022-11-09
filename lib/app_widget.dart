@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mrfr_pay/screens/boleto_screen.dart';
+import 'package:mrfr_pay/screens/cadastro_screen.dart';
 import 'package:mrfr_pay/screens/extrato_screen.dart';
 import 'package:mrfr_pay/screens/home_screen.dart';
 import 'package:mrfr_pay/screens/insert_boleto_screen.dart';
@@ -41,6 +42,7 @@ class AppWidget extends StatelessWidget {
         '/scanner': (context) => const ScannerScreen(),
         '/boleto': (context) => const BoletoScreen(),
         '/extrato': (context) => const ExtratoScreen(),
+        '/cadastro': (context) => const CadastroScreen(),
       },
     );
   }
