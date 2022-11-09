@@ -1,5 +1,6 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:mrfr_pay/data/BoletoDao.dart';
 import 'package:mrfr_pay/domain/boleto.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
@@ -22,20 +23,14 @@ class BoletoTileWidget extends StatelessWidget {
           },
           child: ListTile(
             title: Text(boleto.nome, style: AppTextStyles.titleListTile),
-            // subtitle: Text(
-            //   boleto.vencimento,
-            //   style: AppTextStyles.captionBody,
-            // ),
+            subtitle: Text(
+              "Vence em ${formatDate(boleto.vencimento)}",
+              style: AppTextStyles.captionBody,
+            ),
             trailing: Text.rich( 
               TextSpan(
-                text: 'R\$ ',
-                style: AppTextStyles.trailingRegular,
-                children: [
-                  // TextSpan(
-                  //   text: boleto.valor,
-                  //   style: AppTextStyles.trailingBold,
-                  // ),
-                ],
+                text: boleto.valor,
+                style: AppTextStyles.trailingBold,
               ),
             ),
           ),
@@ -75,13 +70,7 @@ boletoModal(context, Boleto boleto){
                       children: [
                         TextSpan(text: "${boleto.nome} \n", style: AppTextStyles.titleBoldHeading),
                         TextSpan(text: 'no valor de ', style: AppTextStyles.textModal),
-                        TextSpan(
-                          text: 'R\$ ', 
-                          style: AppTextStyles.titleBoldHeading, 
-                          // children: [
-                          //   TextSpan(text: boleto.valor)
-                          //   ]
-                        ),
+                        TextSpan(text: boleto.valor),
                         TextSpan(text: ' foi pago?', style: AppTextStyles.textModal),
                       ],
                     ),

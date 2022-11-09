@@ -61,11 +61,11 @@ class _InsertBoletoScreenState extends State<InsertBoletoScreen> {
                       label: "Nome do boleto",
                       icon: Icons.description_outlined,
                     ),
-                    // InputTextWidget(
-                    //   controller: vencimentoInputTextController,
-                    //   label: "Vencimento",
-                    //   icon: FontAwesomeIcons.circleXmark,
-                    // ),
+                    InputTextWidget(
+                      controller: vencimentoInputTextController,
+                      label: "Vencimento",
+                      icon: FontAwesomeIcons.circleXmark,
+                    ),
                     InputTextWidget(
                       controller: moneyInputTextController,
                       label: "Valor",
@@ -102,14 +102,17 @@ class _InsertBoletoScreenState extends State<InsertBoletoScreen> {
               if (_formKey.currentState!.validate()) {
                 String nomeDigitado = nomeDoBoletoController.text;
                 String codigoDigitado = codigoInputTextController.text;
-                double valorDigitado = moneyInputTextController.numberValue;
+                String valorDigitado = moneyInputTextController.text;
+                String vencimentoDigitado = formatDateToBD(vencimentoInputTextController.text);
+                
                 Boleto boletoDigitado = Boleto(
                     nome: nomeDigitado,
                     valor: valorDigitado,
-                    codigo: codigoDigitado);
+                    codigo: codigoDigitado,
+                    vencimento: vencimentoDigitado);
                 await BoletoDao().cadastrarBoleto(boleto: boletoDigitado);
               }
-              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context,"/home");
             },
           ),
         ],
