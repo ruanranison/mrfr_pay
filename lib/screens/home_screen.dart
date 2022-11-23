@@ -5,7 +5,8 @@ import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final String? user;
+  const HomeScreen({Key? key, this.user}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(152), 
         child: Container(
-         
           height: 152,
           color: AppColors.primary, 
           child: Center( 
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: AppTextStyles.titleRegular,
                   children: [
                     TextSpan(
-                      text: 'Nome', 
+                      text: widget.user, 
                       style: AppTextStyles.titleBoldBackground,
                     ),
                   ],

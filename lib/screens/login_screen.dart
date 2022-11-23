@@ -2,13 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mrfr_pay/data/UserDao.dart';
-import 'package:mrfr_pay/domain/user.dart';
+import 'package:mrfr_pay/screens/home_screen.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
 import 'package:mrfr_pay/style/app_images.dart';
 import 'package:mrfr_pay/widgets/input_text.dart';
 import 'package:mrfr_pay/widgets/label_button.dart';
-import 'package:mrfr_pay/widgets/social_login_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -96,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               String senha = _passwordcontroller.text;
                               bool login = await UserDao().autenticar(user, senha);
                               if(login == true) {
-                                Navigator.pushReplacementNamed(context, '/home');
+                                Navigator.push(context, MaterialPageRoute(builder: ((context) => HomeScreen(user: user,))));
                               } else {
                                 showSnackBar("Dados incorretos");
                               }   
