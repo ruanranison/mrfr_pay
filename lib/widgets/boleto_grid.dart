@@ -1,6 +1,10 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:mrfr_pay/data/BoletoDao.dart';
+import 'package:mrfr_pay/data/ExtratoDao.dart';
+import 'package:mrfr_pay/data/string_utils.dart';
 import 'package:mrfr_pay/domain/boleto.dart';
+import 'package:mrfr_pay/domain/extrato.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
 
@@ -35,22 +39,11 @@ class BoletoGridWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(boleto.nome, style: AppTextStyles.titleListTile),
-                    // Text(
-                    //   boleto.subtitle,
-                    //   style: AppTextStyles.captionBody,
-                    // ),
-                    Text.rich( 
-                      TextSpan(
-                        text: 'R\$ ',
-                        style: AppTextStyles.trailingRegular,
-                        children: [
-                        // TextSpan(
-                        //   text: boleto.trailing,
-                        //   style: AppTextStyles.trailingBold,
-                        //   ),
-                        ],
-                      ),
+                    Text(
+                      formatDate(boleto.vencimento),
+                      style: AppTextStyles.captionBody,
                     ),
+                    Text(boleto.valor, style: AppTextStyles.trailingBold,)
                   ],
                 ),
               ),
@@ -92,13 +85,7 @@ boletoModal(context, Boleto boleto){
                       children: [
                         TextSpan(text: "${boleto.nome} \n", style: AppTextStyles.titleBoldHeading),
                         TextSpan(text: 'no valor de ', style: AppTextStyles.textModal),
-                        TextSpan(
-                          text: 'R\$ ', 
-                          style: AppTextStyles.titleBoldHeading, 
-                          // children: [
-                          //   TextSpan(text: boleto.trailing)
-                          //   ]
-                        ),
+                        TextSpan(text: boleto.valor, style: AppTextStyles.titleBoldHeading),
                         TextSpan(text: ' foi pago?', style: AppTextStyles.textModal),
                       ],
                     ),
@@ -130,7 +117,12 @@ boletoModal(context, Boleto boleto){
                         SizedBox(width: constraints.maxWidth * .04),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: (() => Navigator.pop(context)),
+                            onPressed: (() async {
+                              Extrato extrato = Extrato(nome: boleto.nome, vencimento: boleto.vencimento, valor: boleto.valor, codigo: boleto.codigo);
+                              await ExtratoDao().cadastrarExtrato(extrato: extrato);
+                              await BoletoDao().deletarBoleto(boleto: boleto);
+                              Navigator.pushReplacementNamed(context, '/home');
+                            }),
                             child: Text('Sim', style: AppTextStyles.buttonBackground),
                             style: ElevatedButton.styleFrom(
                               elevation: 0,
@@ -154,8 +146,9 @@ boletoModal(context, Boleto boleto){
                   const Divider(thickness: 1),
                   SizedBox(height: constraints.maxHeight * .01),
                   InkWell(
-                    onTap: (){
-                      Navigator.pop(context);
+                    onTap: () async {
+                      await BoletoDao().deletarBoleto(boleto: boleto);
+                      Navigator.pushReplacementNamed(context, '/home');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,3 @@
-//Ruan Ranison
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mrfr_pay/screens/boleto_screen.dart';
@@ -14,7 +12,6 @@ import 'package:mrfr_pay/style/app_colors.dart';
 
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key) {
-    // 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,

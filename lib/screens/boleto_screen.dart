@@ -90,15 +90,3 @@ class _BoletoScreenState extends State<BoletoScreen> {
     );
   }
 }
-
-// List<Boleto> pegarListaBoleto(result) {
-//   List<Boleto> listaBoleto = [];
-//   result.then((value) {
-//     value.forEach((element) {
-//       Boleto boleto = Boleto.fromJson(element);
-//       listaBoleto.add(boleto);
-//     });
-//     return listaBoleto; 
-//   });
-//   return listaBoleto;
-// }

@@ -39,14 +39,3 @@ class _ListViewScreenState extends State<ListViewScreen> {
     );
   }
 }
-// List<Boleto> pegarListaBoleto (Future<List<Map<String, Object?>>> result) {
-//   List<Boleto> listaBoleto = [];
-//   result.then((value) {
-//     value.forEach((element) {
-//       Boleto boleto = Boleto.fromJson(element);
-//       listaBoleto.add(boleto);
-//     });
-//     return listaBoleto; 
-//   });
-//   return listaBoleto;
-

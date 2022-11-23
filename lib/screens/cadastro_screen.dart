@@ -18,12 +18,13 @@ class CadastroScreen extends StatefulWidget {
 }
 
 class _CadastroScreenState extends State<CadastroScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _usercontroller = TextEditingController();
+  final TextEditingController _passwordcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    TextEditingController _usercontroller = TextEditingController();
-    TextEditingController _passwordcontroller = TextEditingController();
-
     return Scaffold(
         backgroundColor: AppColors.background,
         body: SingleChildScrollView(
@@ -41,19 +42,36 @@ class _CadastroScreenState extends State<CadastroScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 70, left: 35, right: 35),
-                child: Column(
-                  children: [
-                    InputTextWidget(
-                      controller: _usercontroller,
-                      icon: FontAwesomeIcons.user,
-                      label: "Usuário",
-                    ),
-                    InputTextWidget(
-                      controller: _passwordcontroller,
-                      icon: Icons.lock,
-                      label: "Senha",
-                    )
-                  ],
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      InputTextWidget(
+                        controller: _usercontroller,
+                        icon: FontAwesomeIcons.user,
+                        label: "Usuário",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo e-mail obrigatório';
+                          }
+                          return null;
+                        },
+                      ),
+                      InputTextWidget(
+                        controller: _passwordcontroller,
+                        icon: Icons.lock,
+                        label: "Senha",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo senha obrigatório';
+                          } else if (value.length < 6) {
+                            return 'Senha deve possuir no mínimo 8 digitos';
+                          }
+                          return null;
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
               Padding(

@@ -44,16 +44,3 @@ class _GridViewScreenState extends State<GridViewScreen> {
     );
   }
 }
-// List<Boleto> pegarListaBoleto(result) {
-//   List<Boleto> listaBoleto = [];
-//   result.then((value) {
-//     value.forEach((element) {
-//       Boleto boleto = Boleto.fromJson(element);
-//       listaBoleto.add(boleto);
-//       print("foreach");
-//       print(listaBoleto.length);
-//     });
-//     return listaBoleto; 
-//   });
-//   return listaBoleto;
-// }

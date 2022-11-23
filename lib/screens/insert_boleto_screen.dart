@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mrfr_pay/data/BoletoDao.dart';
+import 'package:mrfr_pay/data/string_utils.dart';
 import 'package:mrfr_pay/domain/boleto.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
 import 'package:mrfr_pay/widgets/divider_widget.dart';
-import 'package:mrfr_pay/widgets/grid_view.dart';
-import 'package:mrfr_pay/widgets/list_view.dart';
+import 'package:mrfr_pay/widgets/grid_view_extrato.dart';
+import 'package:mrfr_pay/widgets/list_view_extrato.dart';
 
 class ExtratoScreen extends StatefulWidget {
   const ExtratoScreen({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class _ExtratoScreenState extends State<ExtratoScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: isGridView ? const GridViewScreen() : const ListViewScreen() ,
+            child: isGridView ? const GridViewExtratoScreen() : const ListViewExtratoScreen() ,
           ),
         ],
       ),

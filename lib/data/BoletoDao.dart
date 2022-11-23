@@ -24,37 +24,11 @@ class BoletoDao {
 
     await database.insert('boleto', boleto.toJson());
   }
-}
 
-String formatDate(String? date) {
-  if (date == null) return '';
+  deletarBoleto({required Boleto boleto}) async {
+    DBHelper dbHelper = DBHelper();
+    Database database = await dbHelper.initDB();
 
-  List<String> splittedDate = date.split('-');
-  String year = splittedDate[0];
-  String month = splittedDate[1];
-  String day = splittedDate[2];
-
-  if (int.parse(month) < 10) {
-    month = "0${int.parse(month)}";
+    await database.rawDelete('DELETE FROM boleto WHERE codigo = ?',[boleto.codigo],);
   }
- 
-  if (int.parse(day) < 10) {
-    day = "0${int.parse(day)}";
-  }
-
-  return "$day/$month/$year";
-}
-
-String formatDateToBD(String date) {
-  if (date.contains("/")) {
-    List<String> splittedDate = date.split('/');
-
-    String day = splittedDate[0];
-    String month = splittedDate[1];
-    String year = splittedDate[2];
-
-    return "$year-$month-$day";
-  }
-
-  return date;
 }
