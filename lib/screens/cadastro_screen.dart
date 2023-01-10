@@ -21,28 +21,34 @@ class _CadastroScreenState extends State<CadastroScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usercontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+  final TextEditingController _cepController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: AppColors.background,
-        body: SingleChildScrollView(
-          child: SizedBox(
-            width: size.width,
-            height: size.height,
-            child: Column(children: [
-              Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.15),
-                  child: Image.asset(AppImages.mrfrpay, width: 303, height: 75)),
-              Image.asset(
-                AppImages.logomini2,
-                width: 82.5,
-                height: 60,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 70, left: 35, right: 35),
-                child: Form(
+        body: Padding(
+          padding: const EdgeInsets.only(left: 35, right: 35),
+          child: SingleChildScrollView(
+            child: SizedBox(
+              width: size.width,
+              height: size.height,
+              child: Column(children: [
+                SizedBox(
+                  height: size.height * 0.13,
+                ),
+                Image.asset(AppImages.mrfrpay, width: 303, height: 75),
+                Image.asset(
+                  AppImages.logomini2,
+                  width: 82.5,
+                  height: 60,
+                ),
+                const SizedBox(
+                  height: 42,
+                ),
+                Form(
                   key: _formKey,
                   child: Column(
                     children: [
@@ -69,41 +75,77 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           }
                           return null;
                         },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40, top: 40),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.fromBorderSide(
-                        BorderSide(color: AppColors.stroke)),
-                  ),
-                  height: 56,
-                  width: 112,
-                  child: Column(
-                    children: [
-                      LabelButton(
-                        label: "CADASTRAR",
-                        onPressed: () async {
-                          String userDigitado = _usercontroller.text;
-                          String senhaDigitada = _passwordcontroller.text;
-                          User user = User(username: userDigitado, password: senhaDigitada);
-                          await UserDao().cadastrarUser(user: user);
-                          Navigator.pushReplacementNamed(context, '/login');
+                      ),
+                      InputTextWidget(
+                        icon: Icons.mail,
+                        label: "CEP",
+                        controller: _cepController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo obrigatório';
+                          }
+
+                          return null;
                         },
-                        style: AppTextStyles.buttonBackground,
+                        onEditingComplete: onEditingComplete,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _addressController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo obrigatório';
+                          }
+
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Endereço'),
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.fromBorderSide(
+                              BorderSide(color: AppColors.stroke)),
+                        ),
+                        height: 56,
+                        width: 112,
+                        child: Column(
+                          children: [
+                            LabelButton(
+                              label: "CADASTRAR",
+                              onPressed: () async {
+                                String userDigitado = _usercontroller.text;
+                                String senhaDigitada = _passwordcontroller.text;
+                                User user = User(
+                                    username: userDigitado,
+                                    password: senhaDigitada);
+                                await UserDao().cadastrarUser(user: user);
+                                Navigator.pushReplacementNamed(
+                                    context, '/login');
+                              },
+                              style: AppTextStyles.buttonBackground,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ]),
+              ]),
+            ),
           ),
         ));
   }
+
+  // Future<void> onEditingComplete() async {
+  //   Address address = await AddressApi().findAddressByCep(_cepController.text);
+
+  //   _addressController.text = address.logradouro;
+  // }
 }

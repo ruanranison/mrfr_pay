@@ -33,7 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(children: [
               Padding(
                   padding: EdgeInsets.only(top: size.height * 0.15),
-                  child: Image.asset(AppImages.mrfrpay, width: 303, height: 75)),
+                  child:
+                      Image.asset(AppImages.mrfrpay, width: 303, height: 75)),
               Image.asset(
                 AppImages.logomini2,
                 width: 82.5,
@@ -74,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40, top: 40),
+                padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.primary,
@@ -88,17 +89,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       LabelButton(
                         label: "ENTRAR",
-                        onPressed: () async{
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            if (_usercontroller.text.isNotEmpty && _passwordcontroller.text.isNotEmpty) {
+                            if (_usercontroller.text.isNotEmpty &&
+                                _passwordcontroller.text.isNotEmpty) {
                               String user = _usercontroller.text;
                               String senha = _passwordcontroller.text;
-                              bool login = await UserDao().autenticar(user, senha);
-                              if(login == true) {
-                                Navigator.push(context, MaterialPageRoute(builder: ((context) => HomeScreen(user: user,))));
+                              bool login =
+                                  await UserDao().autenticar(user, senha);
+                              if (login == true) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => HomeScreen(
+                                              user: user,
+                                            ))));
                               } else {
                                 showSnackBar("Dados incorretos");
-                              }   
+                              }
                             } else {
                               showSnackBar("Necessário login e senha");
                             }
@@ -113,27 +121,34 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40, top: 40),
-                child: Text.rich(
-                  TextSpan(
-                    style: TextStyle(fontSize: 16),
-                    text: 'Ainda não possui uma conta? ',
-                    children: [
-                      TextSpan(
-                        text: 'Cadastre-se',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          Navigator.pushNamed(context, '/cadastro');
-                        },
-                      )
-                    ]
-                  )
+                padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                child: Column(
+                  children: [
+                    const Text(
+                      "Ainda não possui uma conta?",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    InkWell(
+                      onTap: () => Navigator.pushNamed(context, '/cadastro'),
+                      child: Text(
+                        "Cadastre-se",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ]),
           ),
         ));
   }
+
   showSnackBar(String msg) {
     final snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
