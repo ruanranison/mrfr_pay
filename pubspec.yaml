@@ -39,6 +39,7 @@ dependencies:
   flutter_masked_text2: ^0.9.1
   sqflite:
   path:
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
