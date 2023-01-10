@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mrfr_pay/data/UserDao.dart';
+import 'package:mrfr_pay/data/address_api.dart';
+import 'package:mrfr_pay/domain/address.dart';
 import 'package:mrfr_pay/domain/user.dart';
 import 'package:mrfr_pay/style/app_colors.dart';
 import 'package:mrfr_pay/style/app_fonts.dart';
@@ -89,8 +91,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         },
                         onEditingComplete: onEditingComplete,
                       ),
-                      const SizedBox(height: 16),
-                      TextFormField(
+                      InputTextWidget(
+                        label: "Endereço",
+                        icon: Icons.home,
                         controller: _addressController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -99,9 +102,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
 
                           return null;
                         },
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Endereço'),
                       ),
                       const SizedBox(
                         height: 32,
@@ -143,9 +143,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
         ));
   }
 
-  // Future<void> onEditingComplete() async {
-  //   Address address = await AddressApi().findAddressByCep(_cepController.text);
+  Future<void> onEditingComplete() async {
+    Address address = await AddressApi().findAddressByCep(_cepController.text);
 
-  //   _addressController.text = address.logradouro;
-  // }
+    _addressController.text = address.logradouro;
+  }
 }

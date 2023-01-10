@@ -8,7 +8,7 @@ class InputTextWidget extends StatelessWidget {
   final IconData icon;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final void Function() onEditingComplete;
+  final void Function()? onEditingComplete;
 
   const InputTextWidget({
     Key? key,
@@ -16,7 +16,7 @@ class InputTextWidget extends StatelessWidget {
     this.validator,
     this.controller,
     required this.label,
-    required this.onEditingComplete,
+    this.onEditingComplete,
   }) : super(key: key);
 
   @override
