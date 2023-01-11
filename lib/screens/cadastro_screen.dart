@@ -25,6 +25,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
   final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController _cepController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _bairroController = TextEditingController();
+  final TextEditingController _ufController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,24 +37,22 @@ class _CadastroScreenState extends State<CadastroScreen> {
         body: Padding(
           padding: const EdgeInsets.only(left: 35, right: 35),
           child: SingleChildScrollView(
-            child: SizedBox(
-              width: size.width,
-              height: size.height,
-              child: Column(children: [
-                SizedBox(
-                  height: size.height * 0.13,
-                ),
-                Image.asset(AppImages.mrfrpay, width: 303, height: 75),
-                Image.asset(
-                  AppImages.logomini2,
-                  width: 82.5,
-                  height: 60,
-                ),
-                const SizedBox(
-                  height: 42,
-                ),
-                Form(
-                  key: _formKey,
+            child: Column(children: [
+              SizedBox(
+                height: size.height * 0.13,
+              ),
+              Image.asset(AppImages.mrfrpay, width: 303, height: 75),
+              Image.asset(
+                AppImages.logomini2,
+                width: 82.5,
+                height: 60,
+              ),
+              const SizedBox(
+                height: 42,
+              ),
+              Form(
+                key: _formKey,
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
                       InputTextWidget(
@@ -80,6 +81,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       ),
                       InputTextWidget(
                         icon: Icons.mail,
+                        onEditingComplete: onEditingComplete,
                         label: "CEP",
                         controller: _cepController,
                         validator: (value) {
@@ -89,7 +91,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
 
                           return null;
                         },
-                        onEditingComplete: onEditingComplete,
                       ),
                       InputTextWidget(
                         label: "Endereço",
@@ -103,42 +104,83 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           return null;
                         },
                       ),
+                      InputTextWidget(
+                        label: "Cidade",
+                        icon: Icons.location_city,
+                        controller: _cityController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo obrigatório';
+                          }
+
+                          return null;
+                        },
+                      ),
+                      InputTextWidget(
+                        label: "Bairro",
+                        icon: Icons.location_history,
+                        controller: _bairroController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo obrigatório';
+                          }
+
+                          return null;
+                        },
+                      ),
+                      InputTextWidget(
+                        label: "UF",
+                        icon: Icons.maps_home_work,
+                        controller: _ufController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo obrigatório';
+                          }
+
+                          return null;
+                        },
+                      ),
                       const SizedBox(
                         height: 32,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.fromBorderSide(
-                              BorderSide(color: AppColors.stroke)),
-                        ),
-                        height: 56,
-                        width: 112,
-                        child: Column(
-                          children: [
-                            LabelButton(
-                              label: "CADASTRAR",
-                              onPressed: () async {
-                                String userDigitado = _usercontroller.text;
-                                String senhaDigitada = _passwordcontroller.text;
-                                User user = User(
-                                    username: userDigitado,
-                                    password: senhaDigitada);
-                                await UserDao().cadastrarUser(user: user);
-                                Navigator.pushReplacementNamed(
-                                    context, '/login');
-                              },
-                              style: AppTextStyles.buttonBackground,
-                            ),
-                          ],
+                      SingleChildScrollView(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.fromBorderSide(
+                                BorderSide(color: AppColors.stroke)),
+                          ),
+                          height: 56,
+                          width: 112,
+                          child: Column(
+                            children: [
+                              LabelButton(
+                                label: "CADASTRAR",
+                                onPressed: () async {
+                                  String userDigitado = _usercontroller.text;
+                                  String senhaDigitada =
+                                      _passwordcontroller.text;
+                                  String cidadeDigitada = _cityController.text;
+                                  User user = User(
+                                      username: userDigitado,
+                                      password: senhaDigitada,
+                                      city: cidadeDigitada);
+                                  await UserDao().cadastrarUser(user: user);
+                                  Navigator.pushReplacementNamed(
+                                      context, '/login');
+                                },
+                                style: AppTextStyles.buttonBackground,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ]),
-            ),
+              ),
+            ]),
           ),
         ));
   }
@@ -147,5 +189,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
     Address address = await AddressApi().findAddressByCep(_cepController.text);
 
     _addressController.text = address.logradouro;
+    _cityController.text = address.localidade;
+    _bairroController.text = address.bairro;
+    _ufController.text = address.uf;
   }
 }

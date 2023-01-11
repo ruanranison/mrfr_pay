@@ -98,11 +98,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               bool login =
                                   await UserDao().autenticar(user, senha);
                               if (login == true) {
+                                dynamic findCity =
+                                    UserDao().listarUsers(user, senha);
+
+                                String cityLogada = findCity.toString();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) => HomeScreen(
                                               user: user,
+                                              city: cityLogada,
                                             ))));
                               } else {
                                 showSnackBar("Dados incorretos");

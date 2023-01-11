@@ -40,6 +40,8 @@ dependencies:
   sqflite:
   path:
   http: ^0.13.5
+  google_maps_flutter: ^2.2.3
+  geocoding: ^2.0.5
 
 dev_dependencies:
   flutter_test:
